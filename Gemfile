@@ -35,5 +35,6 @@ gem 'capistrano'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 gem "bson_ext", ">= 1.5.2"
-gem 'mongoid', '>= 2.4.5'
+gem "mongoid", "~> 2.4.9"
 gem "omniauth-twitter"
+gem 'mongoid_slug'
