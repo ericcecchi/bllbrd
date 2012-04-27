@@ -11,7 +11,5 @@ class Song
   has_many :sources
   
 	slug :name
-	
-	def self.new(params)
-		
+			
 end

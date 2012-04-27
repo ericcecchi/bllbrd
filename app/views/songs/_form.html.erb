@@ -1,25 +1,45 @@
-<%= form_for(@song) do |f| %>
-  <% if @song.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@song.errors.count, "error") %> prohibited this song from being saved:</h2>
+<%= form_for @song, :html => { :class => 'form-horizontal' } do |f| %>
+  <fieldset>
+    <legend><%= controller.action_name.capitalize %> Song</legend>
 
-      <ul>
-      <% @song.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+    <div class="control-group">
+      <%= f.label :name, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :name, :class => 'text_field' %>
+      </div>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :year %><br />
-    <%= f.text_field :year %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="control-group">
+      <%= f.label :year, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :year, :class => 'text_field' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :album_id, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :album_id, :class => 'text_field' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :tag_ids, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :tag_ids, :class => 'text_field' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :playlist_ids, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :playlist_ids, :class => 'text_field' %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to 'Cancel', songs_path, :class => 'btn' %>
+    </div>
+  </fieldset>
 <% end %>
