@@ -13,7 +13,7 @@ class SongsController < ApplicationController
   # GET /songs/1
   # GET /songs/1.json
   def show
-    @song = Song.find(params[:id])
+    @song = Song.where(slug: params[:id]).first
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,7 +34,7 @@ class SongsController < ApplicationController
 
   # GET /songs/1/edit
   def edit
-    @song = Song.find(params[:id])
+    @song = Song.where(slug: params[:id]).first
   end
 
   # POST /songs
@@ -56,7 +56,7 @@ class SongsController < ApplicationController
   # PUT /songs/1
   # PUT /songs/1.json
   def update
-    @song = Song.find(params[:id])
+    @song = Song.where(slug: params[:id]).first
 
     respond_to do |format|
       if @song.update_attributes(params[:song])
@@ -72,7 +72,7 @@ class SongsController < ApplicationController
   # DELETE /songs/1
   # DELETE /songs/1.json
   def destroy
-    @song = Song.find(params[:id])
+    @song = Song.where(slug: params[:id]).first
     @song.destroy
 
     respond_to do |format|

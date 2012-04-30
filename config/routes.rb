@@ -4,10 +4,9 @@ Bllbrd::Application.routes.draw do
   resources :songs
   resources :albums
   resources :artists
-  match "/:id/:id/:id" => "songs#show"
-  match "/:id/:id" => "albums#show"
-  match "/:id" => "artists#show"
-  
+  match "/:artist_id/:album_id/:id" => "songs#show", as: 'artist_album_song'
+  match "/:artist_id/:id" => "albums#show", as: 'artist_album'
+  match "/:id" => "artists#show", as: 'artist'
   
   # Omniauth
 	match "/auth/:provider/callback" => "sessions#create"

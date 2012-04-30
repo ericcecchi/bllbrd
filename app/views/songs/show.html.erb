@@ -1,18 +1,8 @@
-<h1>Song</h1>
+<h1><%= @song.name %></h1>
 
 <p>
-  <b> type</b><br>
-  <%= @song._type %>
-</p>
-
-<p>
-  <b></b><br>
-  <%= @song._id %>
-</p>
-
-<p>
-  <b>Name</b><br>
-  <%= @song.name %>
+  <b>Artist</b><br>
+  <%= @song.artist_name %>
 </p>
 
 <p>
@@ -21,28 +11,23 @@
 </p>
 
 <p>
+  <b>Album</b><br>
+  <%= @song.album_name %>
+</p>
+
+<p>
   <b>Plays</b><br>
   <%= @song.plays %>
 </p>
 
 <p>
-  <b>Album</b><br>
-  <%= @song.album_id %>
+  <b>Tags</b><br>
+  <%= @song.tag_names %>
 </p>
 
 <p>
-  <b>Tag ids</b><br>
-  <%= @song.tag_ids %>
-</p>
-
-<p>
-  <b>Playlist ids</b><br>
-  <%= @song.playlist_ids %>
-</p>
-
-<p>
-  <b>Slug</b><br>
-  <%= @song.slug %>
+  <b>Playlists</b><br>
+  <%= @song.playlist_ids.join(', ').humanize %>
 </p>
 
 <div class="form-actions">

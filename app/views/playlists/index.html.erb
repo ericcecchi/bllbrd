@@ -1,25 +1,26 @@
-<h1>Listing playlists</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @playlists.each do |playlist| %>
-  <tr>
-    <td><%= playlist.name %></td>
-    <td><%= playlist.description %></td>
-    <td><%= link_to 'Show', playlist %></td>
-    <td><%= link_to 'Edit', edit_playlist_path(playlist) %></td>
-    <td><%= link_to 'Destroy', playlist, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+<h1>Playlists</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th> type</th>
+      <th>Created at</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @playlists.each do |playlist| %>
+      <tr>
+        <td><%= playlist.id %></td>
+        <td><%= link_to playlist._type, playlist_path(playlist) %></td>
+        <td><%= playlist.created_at %></td>
+        <td>
+          <%= link_to 'Edit', edit_playlist_path(playlist), :class => 'btn btn-mini' %>
+          <%= link_to 'Destroy', playlist_path(playlist), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
-<br />
-
-<%= link_to 'New Playlist', new_playlist_path %>
+<%= link_to 'New', new_playlist_path, :class => 'btn btn-primary' %>

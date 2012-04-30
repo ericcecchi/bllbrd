@@ -1,15 +1,37 @@
-<p id="notice"><%= notice %></p>
+<h1>Playlist</h1>
 
 <p>
-  <b>Name:</b>
+  <b> type</b><br>
+  <%= @playlist._type %>
+</p>
+
+<p>
+  <b></b><br>
+  <%= @playlist._id %>
+</p>
+
+<p>
+  <b>Name</b><br>
   <%= @playlist.name %>
 </p>
 
 <p>
-  <b>Description:</b>
+  <b>Description</b><br>
   <%= @playlist.description %>
 </p>
 
+<p>
+  <b>Song ids</b><br>
+  <%= @playlist.song_ids %>
+</p>
 
-<%= link_to 'Edit', edit_playlist_path(@playlist) %> |
-<%= link_to 'Back', playlists_path %>
+<p>
+  <b>Slug</b><br>
+  <%= @playlist.slug %>
+</p>
+
+<div class="form-actions">
+  <%= link_to 'Back', playlists_path, :class => 'btn'  %>
+  <%= link_to 'Edit', edit_playlist_path(@playlist), :class => 'btn' %>
+  <%= link_to 'Delete', playlist_path(@playlist), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+</div>

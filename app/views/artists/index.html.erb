@@ -1,25 +1,19 @@
-<h1>Listing artists</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @artists.each do |artist| %>
-  <tr>
-    <td><%= artist.name %></td>
-    <td><%= artist.description %></td>
-    <td><%= link_to 'Show', artist %></td>
-    <td><%= link_to 'Edit', edit_artist_path(artist) %></td>
-    <td><%= link_to 'Destroy', artist, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+<h1>Artists</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @artists.each do |artist| %>
+      <tr>
+        <td><%= link_to artist.name, artist_path(artist) %></td>
+        <td>
+          <%= link_to 'Edit', edit_artist_path(artist), :class => 'btn btn-mini' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
-
-<br />
-
-<%= link_to 'New Artist', new_artist_path %>

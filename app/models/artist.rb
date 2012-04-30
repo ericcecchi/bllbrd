@@ -4,7 +4,7 @@ class Artist
   
   field :name, :type => String
   field :description, :type => String
-  has_many :albums
+  has_many :albums, :dependent => :destroy
     
   slug :name
 end

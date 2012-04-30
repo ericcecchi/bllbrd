@@ -1,15 +1,13 @@
-<p id="notice"><%= notice %></p>
+<h1><%= @album.name %></h1>
 
 <p>
-  <b>Name:</b>
-  <%= @album.name %>
-</p>
-
-<p>
-  <b>Description:</b>
+  <b>Description</b><br>
   <%= @album.description %>
 </p>
 
+<p>Songs will be listed here.</p>
 
-<%= link_to 'Edit', edit_album_path(@album) %> |
-<%= link_to 'Back', albums_path %>
+<div class="form-actions">
+  <%= link_to 'Back', albums_path, :class => 'btn'  %>
+  <%= link_to 'Edit', edit_album_path(@album), :class => 'btn' %>
+</div>

@@ -10,30 +10,30 @@
     </div>
 
     <div class="control-group">
+      <%= f.label :album, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :album_name, :class => 'text_field' %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :artist, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :artist_name, :class => 'text_field' %>
+      </div>
+    </div>
+    
+    <div class="control-group">
       <%= f.label :year, :class => 'control-label' %>
       <div class="controls">
         <%= f.text_field :year, :class => 'text_field' %>
       </div>
     </div>
-ww
+    
     <div class="control-group">
-      <%= f.label :album_id, :class => 'control-label' %>
+      <%= f.label :tags, :class => 'control-label' %>
       <div class="controls">
-        <%= f.text_field :album_id, :class => 'text_field' %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <%= f.label :tag_ids, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :tag_ids, :class => 'text_field' %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <%= f.label :playlist_ids, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :playlist_ids, :class => 'text_field' %>
+        <%= f.text_field :tag_names, :class => 'text_field' %>
       </div>
     </div>
 

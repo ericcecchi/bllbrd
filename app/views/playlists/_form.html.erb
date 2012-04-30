@@ -1,25 +1,52 @@
-<%= form_for(@playlist) do |f| %>
-  <% if @playlist.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@playlist.errors.count, "error") %> prohibited this playlist from being saved:</h2>
+<%= form_for @playlist, :html => { :class => 'form-horizontal' } do |f| %>
+  <fieldset>
+    <legend><%= controller.action_name.capitalize %> Playlist</legend>
 
-      <ul>
-      <% @playlist.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+    <div class="control-group">
+      <%= f.label :_type, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :_type, :class => 'text_field' %>
+      </div>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="control-group">
+      <%= f.label :_id, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :_id, :class => 'text_field' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :name, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :name, :class => 'text_field' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :description, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :description, :class => 'text_field' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :song_ids, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :song_ids, :class => 'text_field' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :slug, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :slug, :class => 'text_field' %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to 'Cancel', playlists_path, :class => 'btn' %>
+    </div>
+  </fieldset>
 <% end %>
