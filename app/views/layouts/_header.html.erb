@@ -7,6 +7,21 @@
         <span class="icon-bar"></span>
       </a>
       <a class="brand" href=<%= root_path %>>bllbrd</a>
+      <div class="btn-group pull-right">
+      <% if current_user %>
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+          <i class="icon-user"></i> <%= current_user.nickname %>
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Profile</a></li>
+          <li class="divider"></li>
+          <li><a href="/signout">Sign Out</a></li>
+        </ul>
+       <% else %>
+         <a class="btn btn-primary"  href="/auth/twitter">Login with Twitter</a>
+			<% end %>
+      </div>
       <div class="container nav-collapse">
         <ul class="nav">
             <li><%= link_to "Songs", songs_path  %></li>

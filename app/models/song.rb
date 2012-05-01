@@ -33,7 +33,7 @@ class Song
 	end
 	
 	def tag_names=(tags_list)
-		self.tag_ids = []
+		self.tags = []
 		tags = tags_list.split(',')
 		tags.each do |tag|
 			tag.strip!
@@ -45,7 +45,7 @@ class Song
 	end
 	
 	def tag_names
-		self.tag_ids.sort.join(', ')
+		self.tag_ids.sort.join(', ').humanize.downcase
 	end
 	
 	def year=(yr)
