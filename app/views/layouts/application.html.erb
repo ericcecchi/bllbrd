@@ -11,7 +11,9 @@
     <![endif]-->
 
     <!-- Le styles -->
-    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= stylesheet_link_tag "app/application", :media => "all" %>
+    <%= stylesheet_link_tag "bootstrap_and_overrides", :media => "all" %>
+    <%= stylesheet_link_tag "home", :media => "all" if current_page?(:controller => 'home') %>    
 
     <!-- Le fav and touch icons -->
     <link href="images/favicon.ico" rel="shortcut icon">

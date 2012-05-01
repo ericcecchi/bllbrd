@@ -16,7 +16,7 @@ body { background-color: #f5f5f5; }
 	background-image:         linear-gradient(to bottom,#fff,#f5f5f5);
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
-	border-radius: 3px; }
+	border-radius: 3px;	}
 
 h1, h2 { font-weight: lighter; }
 h2 { color: #49afcd; font-size: 125%; }
@@ -27,4 +27,4 @@ label { color: #999; display: inline; padding: 0 0 0 22px; }
 
 input[type=checkbox] { width: 20px; height: 20px; margin: 1px 0 0; padding: 0; position: absolute; }
 
-.btn { margin: 10px 0 0; }
+.btn { color: #fff; margin: 10px 0 0; }
