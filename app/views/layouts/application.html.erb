@@ -20,7 +20,9 @@
     <link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
   </head>
   <body>
-
+	
+	<% unless current_page?(:controller => 'home') %>
+	
 	<%= render 'layouts/header' %>
 
     <div class="container">
@@ -36,7 +38,11 @@
 		<%= render 'layouts/footer' %>
 
     </div> <!-- /container -->
-
+		
+		<% else %>
+			<%= yield %>
+		<% end %>
+		
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
