@@ -12,7 +12,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer'
+  gem 'therubyracer'
   gem 'twitter-bootstrap-rails'
   gem 'uglifier', '>= 1.0.3'
 end
@@ -37,4 +37,4 @@ gem 'capistrano'
 gem "bson_ext", ">= 1.5.2"
 gem "mongoid", "~> 2.4.9"
 gem "omniauth-twitter"
-gem 'mongoid_slug'
+gem 'mongoid_slug', :require => 'mongoid/slug'
