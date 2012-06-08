@@ -2,15 +2,15 @@ Bllbrd::Application.routes.draw do
   # Omniauth
 	match "/auth/:provider/callback" => "sessions#create"
 	match "/signout" => "sessions#destroy", :as => :signout
-
+	
   resources :playlists
   resources :tags
   resources :songs
-  resources :albums
+#   resources :albums
   resources :artists
 
   match "/:artist_id/:album_id/:id" => "songs#show", as: 'artist_album_song'
-  match "/:artist_id/:id" => "albums#show", as: 'artist_album'
+  match "/:id/:album_id" => "artists#show", as: 'artist_album'
   match "/:id" => "artists#show", as: 'artist'
 	
   # The priority is based upon order of creation:

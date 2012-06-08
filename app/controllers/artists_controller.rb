@@ -3,7 +3,7 @@ class ArtistsController < ApplicationController
   # GET /artists.json
   def index
     @artists = Artist.all
-
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @artists }
@@ -14,6 +14,8 @@ class ArtistsController < ApplicationController
   # GET /artists/1.json
   def show
     @artist = Artist.find_by_slug(params[:id])
+    
+  	redirect_to artists_path(), notice: 'The page you are looking for does not exist.' and return unless @artist
 
     respond_to do |format|
       format.html # show.html.erb

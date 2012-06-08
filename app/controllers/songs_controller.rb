@@ -15,6 +15,8 @@ class SongsController < ApplicationController
   def show
     @song = Song.where(slug: params[:id]).first
 
+  	redirect_to songs_path(), notice: 'The page you are looking for does not exist.' and return unless @song
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @song }
@@ -44,6 +46,7 @@ class SongsController < ApplicationController
 
     respond_to do |format|
       if @song.save
+      	@song.update_hash()
         format.html { redirect_to @song, notice: 'Song was successfully created.' }
         format.json { render json: @song, status: :created, location: @song }
       else
@@ -60,6 +63,7 @@ class SongsController < ApplicationController
 
     respond_to do |format|
       if @song.update_attributes(params[:song])
+      	@song.update_hash()
         format.html { redirect_to @song, notice: 'Song was successfully updated.' }
         format.json { head :no_content }
       else

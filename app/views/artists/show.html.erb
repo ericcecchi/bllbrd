@@ -1,13 +1,74 @@
-<h1><%= @artist.name %></h1>
+<div class="row">
+<div class="span8">
+	<div class="row">
+		<h1 class="span7"><%= @artist.name %></h1>
+		<div class="span1">
+		  <%= link_to 'Edit', edit_artist_path(@artist), :class => 'btn' %>
+		</div>
+	</div>
+	<div class="row">
+		<p class="span8">
+			<br/>
+		  <%= @artist.description %>
+		</p>
+	</div>
+</div>
 
-<p>
-  <b>Description</b><br>
-  <%= @artist.description %>
-</p>
+<div class="span4"><img src="<%= @artist.artwork %>" /></div>
+</div>
 
-<p>Songs will be listed here.</p>
+<div class="row">
+<div class="span12">
+<% if @artist.songs.size > 0 %>
+<h2>Songs</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Song</th>
+      <th>Featuring</th>
+      <th>Album</th>
+      <th>Year</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @artist.songs.sort_by{|song| song.album.name.downcase}.each do |song| %>
+      <tr>
+        <td><%= link_to song.name, artist_album_song_path(song.album_artist, song.album, song) %></td>
+        <td><% if song.featuring %><%= link_to song.featuring_name, artist_path(song.featuring) %><% end %>&nbsp;</td>
+        <td><%= song.album_name %></td>
+        <td><%= song.year %>&nbsp;</td>
+        <td><%= link_to 'Edit', edit_song_path(song), :class => 'btn btn-mini' %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<% end %>
 
-<div class="form-actions">
-  <%= link_to 'Back', artists_path, :class => 'btn'  %>
-  <%= link_to 'Edit', edit_artist_path(@artist), :class => 'btn' %>
+<% if @artist.featuring_songs.size > 0 %>
+<h2>Featured in</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Song</th>
+      <th>Artist</th>
+      <th>Album</th>
+      <th>Year</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+<% @artist.featuring_songs.sort_by{|song| song.name.downcase}.each do |song| %>
+      <tr>
+        <td><%= link_to song.name, artist_album_song_path(song.album_artist, song.album, song) %></td>
+        <td><%= link_to song.artist_name, artist_path(song.album_artist) %></td>
+        <td><%= song.album_name %></td>
+        <td><%= song.year %>&nbsp;</td>
+        <td><%= link_to 'Edit', edit_song_path(song), :class => 'btn btn-mini' %></td>
+      </tr>
+<% end %>
+  </tbody>
+</table>
+<% end %>
+</div>
 </div>

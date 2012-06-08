@@ -6,7 +6,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @tags.each do |tag| %>
+    <% @tags.sort_by{|tag| tag.name}.each do |tag| %>
       <tr>
         <td><%= link_to tag.name, tag_path(tag)  %></td>
       </tr>

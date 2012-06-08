@@ -13,7 +13,7 @@ class PlaylistsController < ApplicationController
   # GET /playlists/1
   # GET /playlists/1.json
   def show
-    @playlist = Playlist.find(params[:id])
+    @playlist = Playlist.find_by_slug(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,7 +34,7 @@ class PlaylistsController < ApplicationController
 
   # GET /playlists/1/edit
   def edit
-    @playlist = Playlist.find(params[:id])
+    @playlist = Playlist.find_by_slug(params[:id])
   end
 
   # POST /playlists
@@ -56,7 +56,7 @@ class PlaylistsController < ApplicationController
   # PUT /playlists/1
   # PUT /playlists/1.json
   def update
-    @playlist = Playlist.find(params[:id])
+    @playlist = Playlist.find_by_slug(params[:id])
 
     respond_to do |format|
       if @playlist.update_attributes(params[:playlist])
@@ -72,7 +72,7 @@ class PlaylistsController < ApplicationController
   # DELETE /playlists/1
   # DELETE /playlists/1.json
   def destroy
-    @playlist = Playlist.find(params[:id])
+    @playlist = Playlist.find_by_slug(params[:id])
     @playlist.destroy
 
     respond_to do |format|

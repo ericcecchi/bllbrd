@@ -1,4 +1,5 @@
-<h1>Songs</h1>
+<h1>Songs <%= link_to 'New', new_song_path, :class => 'btn btn-primary pull-right' %></h1>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -10,19 +11,23 @@
     </tr>
   </thead>
   <tbody>
-    <% @songs.each do |song| %>
+    <% @songs.sort_by{|song| song.name}.each do |song| %>
       <tr>
-        <td><%= link_to song.name, artist_album_song_path(song.album.artist, song.album, song) %></td>
-        <td><%= link_to song.artist_name, artist_path(song.album.artist) %></td>
-        <td><%= link_to song.album_name, artist_album_path(song.album.artist, song.album) %></td>
+        <td><%= link_to song.name, artist_album_song_path(song.album_artist, song.album, song) %></td>
+        <td><%= link_to song.artist_name, artist_path(song.album_artist) %><% if song.featuring %> featuring <%= link_to song.featuring_name, artist_path(song.featuring) %><% end %></td>
+        <td><%= song.album_name %></td>
         <td><%= song.year %></td>
         <td>
           <%= link_to 'Edit', edit_song_path(song), :class => 'btn btn-mini' %>
-          <%= link_to 'Destroy', song_path(song), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
         </td>
       </tr>
     <% end %>
+    <tr>
+  		<td>Total Songs</td>
+  		<td><%= @songs.size %></td>
+  		<td></td>
+  		<td></td>
+  		<td></td>
+  	</tr>
   </tbody>
 </table>
-
-<%= link_to 'New', new_song_path, :class => 'btn btn-primary' %>

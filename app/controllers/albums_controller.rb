@@ -15,6 +15,8 @@ class AlbumsController < ApplicationController
   def show
     @album = Album.find_by_slug(params[:id])
 
+  	redirect_to artists_path(), notice: 'The page you are looking for does not exist.' and return unless @album
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @album }

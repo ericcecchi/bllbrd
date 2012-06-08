@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.2'
+gem 'rails', '~> 3.2.2'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -35,6 +35,8 @@ gem 'capistrano'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 gem "bson_ext", ">= 1.5.2"
-gem "mongoid", "~> 2.4.9"
+gem "mongoid", ">= 2.4"
+gem "mongoid_slug"
 gem "omniauth-twitter"
-gem 'mongoid_slug', :require => 'mongoid/slug'
+gem 'nokogiri'
+# gem "rdio", "~> 0.0.98"

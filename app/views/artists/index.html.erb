@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @artists.each do |artist| %>
+    <% @artists.sort_by{|artist| artist.name.downcase}.each do |artist| %>
       <tr>
         <td><%= link_to artist.name, artist_path(artist) %></td>
         <td>
@@ -15,5 +15,9 @@
         </td>
       </tr>
     <% end %>
+  	<tr>
+  		<td>Total Artists</td>
+  		<td><%= @artists.size %></td>
+  	</tr>
   </tbody>
 </table>

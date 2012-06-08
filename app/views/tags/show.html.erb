@@ -1,3 +1,33 @@
 <h1>Songs tagged "<%= @tag.name %>"</h1>
 
-<p>Songs will be listed here.	</p>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Artist</th>
+      <th>Album</th>
+      <th>Year</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tag.songs.sort.each do |song| %>
+      <tr>
+        <td><%= link_to song.name, artist_album_song_path(song.album_artist, song.album, song) %></td>
+        <td><%= link_to song.artist_name, artist_path(song.album_artist) %><% if song.featuring %> featuring <%= link_to song.featuring_name, artist_path(song.featuring) %><% end %></td>
+        <td><%= song.album_name %></td>
+        <td><%= song.year %></td>
+        <td>
+          <%= link_to 'Edit', edit_song_path(song), :class => 'btn btn-mini' %>
+        </td>
+      </tr>
+    <% end %>
+    <tr>
+  		<td>Total Songs</td>
+  		<td><%= @tag.songs.size %></td>
+  		<td></td>
+  		<td></td>
+  		<td></td>
+  	</tr>
+  </tbody>
+</table>

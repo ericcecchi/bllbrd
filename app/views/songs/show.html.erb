@@ -1,37 +1,29 @@
-<h1><%= @song.name %></h1>
-
-<p>
-  <b>Artist</b><br>
-  <%= @song.artist_name %>
-</p>
-
-<p>
-  <b>Year</b><br>
-  <%= @song.year %>
-</p>
-
-<p>
-  <b>Album</b><br>
-  <%= @song.album_name %>
-</p>
-
-<p>
-  <b>Plays</b><br>
-  <%= @song.plays %>
-</p>
-
-<p>
-  <b>Tags</b><br>
-  <%= @song.tag_names %>
-</p>
-
-<p>
-  <b>Playlists</b><br>
-  <%= @song.playlist_ids.join(', ').humanize %>
-</p>
-
-<div class="form-actions">
-  <%= link_to 'Back', songs_path, :class => 'btn'  %>
-  <%= link_to 'Edit', edit_song_path(@song), :class => 'btn' %>
-  <%= link_to 'Delete', song_path(@song), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+<div class="row">
+	<div class="span3"><img src="<%= @song.artwork %>" /></div>
+	<div class="span9">
+		<div class="row">
+			<div class="span8">
+				<h1><%= @song.name %></h1>
+				
+				<h2><%= link_to @song.artist_name, artist_path(@song.album_artist) %><% if @song.featuring_name %> featuring <%= link_to @song.featuring_name, artist_path(@song.featuring) %><% end %></h2>
+				
+				<h3><%= @song.album_name %></h3>
+			</div>
+			<div class="span1">
+			  <%= link_to 'Edit', edit_song_path(@song), :class => 'btn' %>
+			</div>
+		</div>
+		<br/>
+		<div class="row">
+			<div class="span3">
+				<p><b>Year: </b><%= @song.year %></p>
+				
+				<p><b>Plays: </b><%= @song.plays %></p>
+			</div>
+			<div class="span3">
+				<p><b>Tags: </b><% @song.tags.each do |tag| %><%= link_to tag.name, tag_path(tag) %><% end %></p>
+				
+				<p><b>Playlists: </b><% @song.playlists.each do |playlist| %><%= link_to playlist.name, playlist_path(playlist) %><% end %></p>
+			</div>
+	</div>
 </div>

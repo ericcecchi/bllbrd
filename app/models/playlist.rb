@@ -4,7 +4,7 @@ class Playlist
 
   field :name, :type => String
   field :description, :type => String
-  has_and_belongs_to_many :songs
+  has_many :rankings, dependent: :destroys
     
   slug :name
 end

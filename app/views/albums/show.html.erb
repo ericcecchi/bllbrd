@@ -1,13 +1,45 @@
-<h1><%= @album.name %></h1>
-
-<p>
-  <b>Description</b><br>
-  <%= @album.description %>
-</p>
-
-<p>Songs will be listed here.</p>
-
-<div class="form-actions">
-  <%= link_to 'Back', albums_path, :class => 'btn'  %>
-  <%= link_to 'Edit', edit_album_path(@album), :class => 'btn' %>
+<div class="row">
+<div class="span3"><img src="<%= @album.artwork %>" /></div>
+<div class="span9">
+	<div class="row">
+		<h1 class="span8"><%= @album.name %></h1>
+		<div class="span1">
+		  <%= link_to 'Edit', edit_album_path(@album), :class => 'btn' %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span9">
+		<h2><%= link_to @album.artist.name, artist_path(@album.artist) %></h2>
+		<p>
+			<br/>
+		  <%= @album.description %>
+		</p>
+		</div>
+	</div>
 </div>
+</div>
+
+<div class="row">
+<div class="span12">
+
+<h2>Songs</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Song</th>
+      <th>Featuring</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @album.songs.sort_by{|song| song.name.downcase}.each do |song| %>
+      <tr>
+        <td><%= link_to song.name, artist_album_song_path(song.album_artist, song.album, song) %></td>
+        <td><% if song.featuring %><%= link_to song.featuring_name, artist_path(song.featuring) %><% end %></td>
+        <td>
+          <%= link_to 'Edit', edit_song_path(song), :class => 'btn btn-mini' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
