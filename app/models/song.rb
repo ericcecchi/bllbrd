@@ -3,7 +3,7 @@ class Song
 	include Mongoid::Slug
 	require "#{Rails.root}/config/apis/rdio"
 	
-# 	after_update :update_hash
+# before_update :update_hash
 
 	field :name, :type => String
 	field :plays, :type => Integer, default: 0
@@ -76,6 +76,10 @@ class Song
 		end
 	end
 	
+	def links
+		SkullScraper.scrape(track: self.name, artist: self.artist_name)
+	end
+	
 	def playlists
 		playlists = []
 		self.rankings.each do |r|
@@ -116,6 +120,7 @@ class Song
 				self.rdio_hash = ServiceApi.get_track(title: self.name, artist: self.artist_name, service: :rdio) || {}
 				self.lastfm_hash = ServiceApi.get_track(title: self.name, artist: self.artist_name, service: :lastfm) || {}
 				self.spotify_hash = ServiceApi.get_track(title: self.name, artist: self.artist_name, service: :spotify) || {}
+				self.name
 				self.save
 				
 				self.album_artist.rdio_hash = ServiceApi.get_artist(key: self.rdio_hash['artistKey'], service: :rdio) || {}

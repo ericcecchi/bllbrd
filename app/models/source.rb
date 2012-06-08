@@ -5,6 +5,7 @@ class Source
   field :url, :type => String
   field :quality, :type => String
   field :clicks, :type => Integer
-  field :reports, :type => Integer
+  field :upvotes, :type => Integer
+  field :downvotes, :type => Integer
   belongs_to :song
 end

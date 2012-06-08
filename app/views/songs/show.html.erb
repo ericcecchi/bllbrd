@@ -27,3 +27,49 @@
 			</div>
 	</div>
 </div>
+
+<div class="span12">
+	<br/>
+	<h1>Sources</h1>
+	<br/>
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th>Premium Services</th>
+	      <th></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	<% if @song.rdio_hash['shortUrl'] %>
+	  	<tr>
+	  		<td><%= link_to "Play on Rdio", @song.rdio_hash['shortUrl'] %></td>
+	  		<td></td>
+	  	</tr>
+	  	<% end %>
+	  	<% if @song.spotify_hash['href'] %>
+	  	<tr>
+	  		<td><%= link_to "Play on Spotify", '//open.spotify.com/track/' + @song.spotify_hash['href'].split(':')[2] rescue '' %></td>
+	  		<td></td>
+	  	</tr>
+	  	<% end %>
+	  </tbody>
+	  <thead>
+	    <tr>
+	      <th>MP3 Download (320 kbps)</th>
+	      <th>Source</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @song.links.each do |link| %>
+	      <tr>
+	        <td><%= link_to link[:name], link[:url] %></td>
+	        <td><%= link[:source] %></td>
+	      </tr>
+	    <% end %>
+	    <tr>
+	  		<td>Total Links</td>
+	  		<td><%= @song.links.size %></td>
+	  	</tr>
+	  </tbody>
+	</table>
+</div>
