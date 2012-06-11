@@ -67,7 +67,7 @@ class SongsController < ApplicationController
         format.html { redirect_to @song, notice: 'Song was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: "edit", notice: params[:message]  }
         format.json { render json: @song.errors, status: :unprocessable_entity }
       end
     end

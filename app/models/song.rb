@@ -1,16 +1,17 @@
 class Song
 	include Mongoid::Document
 	include Mongoid::Slug
+  include Mongoid::FullTextSearch
 	require "#{Rails.root}/config/apis/rdio"
 	
 # before_update :update_hash
 
-	field :name, :type => String
-	field :plays, :type => Integer, default: 0
-	field :track, :type => Integer, default: 1
-	field :rdio_hash, :type => Hash, default: {}
-	field :spotify_hash, :type => Hash, default: {}
-	field :lastfm_hash, :type => Hash, default: {}
+	field :name, type: String
+	field :plays, type: Integer, default: 0
+	field :track, type: Integer, default: 1
+	field :rdio_hash, type: Hash, default: {}
+	field :spotify_hash, type: Hash, default: {}
+	field :lastfm_hash, type: Hash, default: {}
 	
 	belongs_to :album
 	belongs_to :album_artist, class_name: 'Artist', inverse_of: :songs
@@ -19,11 +20,13 @@ class Song
 	has_many :rankings, dependent: :destroy
 	has_many :sources
 	
-  validates_presence_of :name
+  validates_presence_of :name, message: "Name must be present."
+  validates_presence_of :album_artist, message: "Artist must be present."
 	
 	slug :name
-	
-	def album_name=(album_name)
+  fulltext_search_in :name, :artist_name, :featuring_name, ngram_width: 3, max_ngrams_to_search: 1
+  
+  def album_name=(album_name)
 		album = Album.find_or_create_by(name: album_name, artist_id: self.album_artist._id)
 		self.album = album
 		self.album_artist.albums << self.album
@@ -47,8 +50,6 @@ class Song
 		self.album_artist = Artist.find_or_create_by(name: artist_name)
 		self.album_artist.albums << self.album
 		self.album_artist.save
-# 		self.album_artist.songs << self
-# 		self.album_artist.save
 		self.save
 	end
 	
@@ -61,10 +62,11 @@ class Song
 	end
 	
 	def featuring_name=(featuring_name)
-		self.featuring = Artist.find_or_create_by(name: featuring_name)
-		self.save
-# 		self.featuring.songs << self
-# 		self.featuring.save
+		unless featuring_name == ''
+			self.featuring = Artist.find_or_create_by(name: featuring_name)
+		else
+			self.featuring = nil
+		end
 	end
 	
 	def featuring_name

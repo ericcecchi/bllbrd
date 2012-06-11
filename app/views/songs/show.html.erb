@@ -21,35 +21,31 @@
 				<p><b>Plays: </b><%= @song.plays %></p>
 			</div>
 			<div class="span3">
-				<p><b>Tags: </b><% @song.tags.each do |tag| %><%= link_to tag.name, tag_path(tag) %><% end %></p>
+				<p><b>Tags: </b><%= raw @song.tags.collect { |tag| link_to tag.name, tag_path(tag) }.join(', ') %></p>
 				
-				<p><b>Playlists: </b><% @song.playlists.each do |playlist| %><%= link_to playlist.name, playlist_path(playlist) %><% end %></p>
+				<p><b>Playlists: </b><%= raw @song.playlists.collect { |playlist| link_to playlist.name, playlist_path(playlist) }.join(', ') %></p>
 			</div>
 	</div>
 </div>
 
 <div class="span12">
 	<br/>
-	<h1>Sources</h1>
-	<br/>
+	<h2>Sources</h2>
 	<table class="table table-striped">
 	  <thead>
 	    <tr>
-	      <th>Premium Services</th>
-	      <th></th>
+	      <th colspan="2">Premium Services</th>
 	    </tr>
 	  </thead>
 	  <tbody>
 	  	<% if @song.rdio_hash['shortUrl'] %>
 	  	<tr>
-	  		<td><%= link_to "Play on Rdio", @song.rdio_hash['shortUrl'] %></td>
-	  		<td></td>
+	  		<td colspan="2"><%= link_to "Play on Rdio", @song.rdio_hash['shortUrl'], :target => "_blank" %></td>
 	  	</tr>
 	  	<% end %>
 	  	<% if @song.spotify_hash['href'] %>
 	  	<tr>
-	  		<td><%= link_to "Play on Spotify", '//open.spotify.com/track/' + @song.spotify_hash['href'].split(':')[2] rescue '' %></td>
-	  		<td></td>
+	  		<td colspan="2"><%= link_to "Play on Spotify", "//open.spotify.com/track/#{@song.spotify_hash['href'].split(':')[2] rescue ''}", :target => "_blank"  %></td>
 	  	</tr>
 	  	<% end %>
 	  </tbody>
@@ -62,7 +58,7 @@
 	  <tbody>
 	    <% @song.links.each do |link| %>
 	      <tr>
-	        <td><%= link_to link[:name], link[:url] %></td>
+	        <td><%= link_to link[:name], link[:url], :target => "_blank" %></td>
 	        <td><%= link[:source] %></td>
 	      </tr>
 	    <% end %>

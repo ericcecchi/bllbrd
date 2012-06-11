@@ -1,7 +1,8 @@
 Bllbrd::Application.routes.draw do
   # Omniauth
 	match "/auth/:provider/callback" => "sessions#create"
-	match "/signout" => "sessions#destroy", :as => :signout
+	match "/signout" => "sessions#destroy", as: :signout
+	match "/search" => "search#index", as: "search"
 	
   resources :playlists
   resources :tags

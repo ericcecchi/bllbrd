@@ -43,18 +43,13 @@ songs.each do |song_hash|
 	end
 	
 	artist = Artist.where(name:	artist_name).first
-	album = Album.where(name: album_name, artist_id: artist._id).first if artist
-	unless album
-		album = Album.where(name: song_name, artist_id: artist._id).first if artist
-	end	
-	song = Song.where(name: song_name, album_id: album._id).first if album
+	song = Song.where(name: song_name, album_artist_id: artist._id).first if artist
 	unless song
 		song = Song.create(name: song_name, artist_name: artist_name, album_name: album_name)
 		song.update_attributes(featuring_name: song_hash[:featuring]) if song_hash[:featuring]
-# 		song.rdio_update(song_name,artist_name)
+		song.update_hash()
 	end
 	song.update_attributes(tag_names: song_hash[:chart])
-	song.update_hash()
 	if song.playlists.include?(playlist)
 		r = Ranking.where(song_id: song._id, playlist_id: playlist._id).first
 		r.position = song_hash[:position].to_i

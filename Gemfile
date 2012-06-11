@@ -17,6 +17,11 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+group :development do
+  gem 'bullet'
+  gem 'ruby-growl'
+end
+
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
@@ -37,6 +42,7 @@ gem 'capistrano'
 gem "bson_ext", ">= 1.5.2"
 gem "mongoid", ">= 2.4"
 gem "mongoid_slug"
+gem "mongoid_fulltext"
 gem "omniauth-twitter"
 gem 'nokogiri'
 # gem "rdio", "~> 0.0.98"

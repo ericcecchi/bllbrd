@@ -2,15 +2,15 @@ class Album
   include Mongoid::Document
   include Mongoid::Slug
   
-  field :name, :type => String, default: ''
-  field :rdio_hash, :type => Hash, default: {}
-  field :spotify_hash, :type => Hash, default: {}
-  field :lastfm_hash, :type => Hash, default: {}
+  field :name, type: String, default: ''
+  field :rdio_hash, type: Hash, default: {}
+  field :spotify_hash, type: Hash, default: {}
+  field :lastfm_hash, type: Hash, default: {}
     
   belongs_to :artist
-  has_many :songs, :dependent => :destroy
+  has_many :songs, dependent: :destroy
   
-  validates_presence_of :name
+  validates_presence_of :name, message: "Album name cannot be blank."
 
 	slug :name
 	

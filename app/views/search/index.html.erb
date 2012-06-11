@@ -1,5 +1,7 @@
-<h1>All Songs</h1>
+<h1>Search Results</h1>
 <br/>
+<% unless @songs.empty? %>
+<h2>Songs</h2>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -31,3 +33,29 @@
   	</tr>
   </tbody>
 </table>
+<% end %>
+<% unless @artists.empty? %>
+<h2>Artists</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @artists.sort_by{|artist| artist.name.downcase}.each do |artist| %>
+      <tr>
+        <td><%= link_to artist.name, artist_path(artist) %></td>
+        <td>
+          <%= link_to 'Edit', edit_artist_path(artist), :class => 'btn btn-mini' %>
+        </td>
+      </tr>
+    <% end %>
+  	<tr>
+  		<td>Total Artists</td>
+  		<td><%= @artists.size %></td>
+  	</tr>
+  </tbody>
+</table>
+<% end %>

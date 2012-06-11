@@ -1,21 +1,24 @@
 <h1>Playlists</h1>
+
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Actions</th>
+<!--       <th>Actions</th> -->
     </tr>
   </thead>
   <tbody>
     <% @playlists.each do |playlist| %>
       <tr>
         <td><%= link_to playlist.name, playlist_path(playlist) %></td>
+<!--
         <td>
           <%= link_to 'Edit', edit_playlist_path(playlist), :class => 'btn btn-mini' %>
         </td>
+-->
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'New', new_playlist_path, :class => 'btn btn-primary' %>
+<!-- <%= link_to 'New', new_playlist_path, :class => 'btn btn-primary' %> -->
