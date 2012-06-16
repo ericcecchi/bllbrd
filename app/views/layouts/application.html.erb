@@ -41,9 +41,11 @@
 			<%= alert %>
 			</div>
 			<% end %>
-      <div class="content">
-            <%= yield %>
-<!--           <%= render 'layouts/sidebar' %> -->
+      <div class="content row">
+<!--         <%= render 'layouts/sidebar' %> -->
+        <div class="span12">
+        <%= yield %>
+        </div>
       </div><!--/content-->
 
 		<%= render 'layouts/footer' %>

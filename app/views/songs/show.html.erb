@@ -13,8 +13,9 @@
 			  <%= link_to 'Edit', edit_song_path(@song), :class => 'btn' %>
 			</div>
 		</div>
-		<br/>
+		</div>
 		<div class="row">
+			<br/>
 			<div class="span3">
 				<p><b>Year: </b><%= @song.year %></p>
 				
@@ -28,44 +29,61 @@
 	</div>
 </div>
 
-<div class="span12">
-	<br/>
-	<h2>Sources</h2>
-	<table class="table table-striped">
-	  <thead>
-	    <tr>
-	      <th colspan="2">Premium Services</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	  	<% if @song.rdio_hash['shortUrl'] %>
-	  	<tr>
-	  		<td colspan="2"><%= link_to "Play on Rdio", @song.rdio_hash['shortUrl'], :target => "_blank" %></td>
-	  	</tr>
-	  	<% end %>
-	  	<% if @song.spotify_hash['href'] %>
-	  	<tr>
-	  		<td colspan="2"><%= link_to "Play on Spotify", "//open.spotify.com/track/#{@song.spotify_hash['href'].split(':')[2] rescue ''}", :target => "_blank"  %></td>
-	  	</tr>
-	  	<% end %>
-	  </tbody>
-	  <thead>
-	    <tr>
-	      <th>MP3 Download (320 kbps)</th>
-	      <th>Source</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <% @song.links.each do |link| %>
-	      <tr>
-	        <td><%= link_to link[:name], link[:url], :target => "_blank" %></td>
-	        <td><%= link[:source] %></td>
-	      </tr>
-	    <% end %>
-	    <tr>
-	  		<td>Total Links</td>
-	  		<td><%= @song.links.size %></td>
-	  	</tr>
-	  </tbody>
-	</table>
+<div class="row">
+	<div class="span12">
+		<br/>
+		<h2>Music Video</h2>
+		<% unless @song.youtube_id == '' %>
+		<div id="video-container">
+			<div id="dummy"></div>
+			<%= @song.video %>
+		</div>
+		<% else %>
+		<p>Video not available.</p>
+		<% end %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="span12">
+		<br/>
+		<h2>Sources</h2>
+		<table class="table table-striped">
+		  <thead>
+		    <tr>
+		      <th colspan="2">Premium Services</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	<% if @song.rdio_hash['shortUrl'] %>
+		  	<tr>
+		  		<td colspan="2"><%= link_to "Play on Rdio", @song.rdio_hash['shortUrl'], :target => "_blank" %></td>
+		  	</tr>
+		  	<% end %>
+		  	<% if @song.spotify_hash['href'] %>
+		  	<tr>
+		  		<td colspan="2"><%= link_to "Play on Spotify", "//open.spotify.com/track/#{@song.spotify_hash['href'].split(':')[2] rescue ''}", :target => "_blank"  %></td>
+		  	</tr>
+		  	<% end %>
+		  </tbody>
+		  <thead>
+		    <tr>
+		      <th>MP3 Download (320 kbps)</th>
+		      <th>Source</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <% @song.links.each do |link| %>
+		      <tr>
+		        <td><%= link_to link['name'], link['url'], :target => "_blank" %></td>
+		        <td><%= link['source'] %></td>
+		      </tr>
+		    <% end %>
+		    <tr>
+		  		<td>Total Links</td>
+		  		<td><%= @song.links.size %></td>
+		  	</tr>
+		  </tbody>
+		</table>
+	</div>
 </div>

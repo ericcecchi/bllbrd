@@ -39,6 +39,7 @@ gem 'capistrano'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
+gem 'httparty'
 gem "bson_ext", ">= 1.5.2"
 gem "mongoid", ">= 2.4"
 gem "mongoid_slug"

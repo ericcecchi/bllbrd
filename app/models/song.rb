@@ -4,7 +4,8 @@ class Song
   include Mongoid::FullTextSearch
 	require "#{Rails.root}/config/apis/rdio"
 	
-# before_update :update_hash
+# 	before_update :update_hash
+	before_save :update_name, :update_youtube, :update_links
 
 	field :name, type: String
 	field :plays, type: Integer, default: 0
@@ -12,6 +13,8 @@ class Song
 	field :rdio_hash, type: Hash, default: {}
 	field :spotify_hash, type: Hash, default: {}
 	field :lastfm_hash, type: Hash, default: {}
+	field :youtube_id, type: String, default: ''
+	field :mp3skull, type: Array, default:[]
 	
 	belongs_to :album
 	belongs_to :album_artist, class_name: 'Artist', inverse_of: :songs
@@ -78,8 +81,17 @@ class Song
 		end
 	end
 	
+	def update_links
+		l = SkullScraper.scrape(track: self.name, artist: self.artist_name)
+		self.mp3skull = l
+	end
+	
 	def links
-		SkullScraper.scrape(track: self.name, artist: self.artist_name)
+		if self.mp3skull == []
+			self.update_links
+			self.save!
+		end
+		self.mp3skull
 	end
 	
 	def playlists
@@ -97,6 +109,7 @@ class Song
 		end
 		names
 	end
+
 	
 	def update_hash(args={})
 	# Parameters:
@@ -122,8 +135,7 @@ class Song
 				self.rdio_hash = ServiceApi.get_track(title: self.name, artist: self.artist_name, service: :rdio) || {}
 				self.lastfm_hash = ServiceApi.get_track(title: self.name, artist: self.artist_name, service: :lastfm) || {}
 				self.spotify_hash = ServiceApi.get_track(title: self.name, artist: self.artist_name, service: :spotify) || {}
-				self.name
-				self.save
+				self.save!
 				
 				self.album_artist.rdio_hash = ServiceApi.get_artist(key: self.rdio_hash['artistKey'], service: :rdio) || {}
 				if self.lastfm_hash['artist']
@@ -131,12 +143,12 @@ class Song
 				else
 					self.album_artist.lastfm_hash = ServiceApi.get_artist(name: self.artist_name, service: :lastfm) || {}
 				end
-				self.album_artist.save
+				self.album_artist.save!
 				
 				if self.featuring_name
 					self.featuring.rdio_hash = ServiceApi.get_artist(name: self.featuring_name, service: :rdio) || {}
 					self.featuring.lastfm_hash = ServiceApi.get_artist(name: self.featuring_name, service: :lastfm) || {}
-					self.featuring.save
+					self.featuring.save!
 				end
 				
 				album_rdio_hash = ServiceApi.get_album(key: self.rdio_hash['albumKey'], service: :rdio) || {}
@@ -154,10 +166,18 @@ class Song
 				end
 				self.album.rdio_hash = album_rdio_hash
 				self.album.lastfm_hash = album_lastfm_hash
-				self.album.save
+				self.album.save!
 # 				self.album_artist.spotify_hash = ServiceApi.get_artist(key: self.spotify_hash['artist']['uri'], service: :spotify)
 # 				self.album.spotify_hash = ServiceApi.get_album(key: self.spotify_hash['album']['uri'], service: :spotify)
 		end
+	end
+
+	def update_name
+		self.name = self.rdio_hash['name'] if self.rdio_hash['name']
+	end
+	
+	def update_youtube
+		self.youtube_id = Youtune5.search("#{self.artist_name} #{self.name}")
 	end
 
 	def tag_names=(tags_list)
@@ -176,6 +196,14 @@ class Song
 			list << tag.name
 		end
 		list.join(', ')
+	end
+	
+	def video
+		if self.youtube_id == ''
+			self.update_youtube
+			self.save!
+		end
+		Youtune5.embed(self.youtube_id).html_safe unless self.youtube_id == ''
 	end
 	
 	def year=(yr)

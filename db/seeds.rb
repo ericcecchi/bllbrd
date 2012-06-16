@@ -8,6 +8,7 @@
 		
 songs = ChartScraper.scrape(chart: :hot100)
 playlist = Playlist.find_or_create_by(name: 'Billboard Hot 100')
+# playlist.rankings.destroy_all
 
 songs.each do |song_hash|
 	service = :rdio
@@ -52,10 +53,14 @@ songs.each do |song_hash|
 	song.update_attributes(tag_names: song_hash[:chart])
 	if song.playlists.include?(playlist)
 		r = Ranking.where(song_id: song._id, playlist_id: playlist._id).first
-		r.position = song_hash[:position].to_i
-		r.peak = song_hash[:position].to_i if song_hash[:position].to_i > r.peak
-		r.weeks += 1
-		r.save
+		if r
+			r.position = song_hash[:position].to_i
+			r.peak = song_hash[:position].to_i if song_hash[:position].to_i > r.peak
+			r.weeks += 1
+			r.save
+		else
+			r = Ranking.create(song_id: song._id, playlist_id: playlist._id, position: song_hash[:position], peak: song_hash[:position])
+		end		
 	else
 		r = Ranking.create(song_id: song._id, playlist_id: playlist._id, position: song_hash[:position], peak: song_hash[:position])
 	end

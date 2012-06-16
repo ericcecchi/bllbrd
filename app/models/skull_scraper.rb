@@ -16,14 +16,22 @@ class SkullScraper
 			mp3_info = mp3.at_css('div').content
 			unless mp3_info.to_i < 320 or mp3.at_css('#right_song div').content.downcase.include?("remix")
 				next if mp3.at_css('#right_song div div div a')['href'].include?('4shared')
-				link = {	name: mp3.at_css('#right_song div').content,
-								 	quality: 320, url: mp3.at_css('#right_song div div div a')['href'], 
-								 	type: 'Download', 
-								 	source: 'MP3Skull' }
+				link = {	'name' => fix_utf8(mp3.at_css('#right_song div').content),
+								 	'quality' => 320, 
+								 	'url' => fix_utf8(mp3.at_css('#right_song div div div a')['href']), 
+								 	'type' => 'Download', 
+								 	'source' => 'MP3Skull' }
 				links << link
 				i += 1
 			end
 		end
 		return links
+	end
+	
+	protected
+	def self.fix_utf8(untrusted_string)
+		require 'iconv'
+		ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
+		valid_string = ic.iconv(untrusted_string + ' ')[0..-2]
 	end
 end
