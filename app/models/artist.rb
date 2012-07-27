@@ -26,7 +26,7 @@ class Artist
   end
   
   def description
-  	if self.lastfm_hash['bio']['summary']
+  	if self.lastfm_hash['bio'] and self.lastfm_hash['bio']['summary']
 	  	des = self.lastfm_hash['bio']['summary']['#cdata-section'] || self.lastfm_hash['bio']['summary'] || ''
 	  	des.html_safe
 	  end

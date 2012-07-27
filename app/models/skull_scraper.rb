@@ -15,10 +15,12 @@ class SkullScraper
 			break if i > limit
 			mp3_info = mp3.at_css('div').content
 			unless mp3_info.to_i < 320 or mp3.at_css('#right_song div').content.downcase.include?("remix")
-				next if mp3.at_css('#right_song div div div a')['href'].include?('4shared')
+				url = mp3.at_css('#right_song div div div a')
+				next if url.nil?
+				next if url['href'].include?('4shared')
 				link = {	'name' => fix_utf8(mp3.at_css('#right_song div').content),
 								 	'quality' => 320, 
-								 	'url' => fix_utf8(mp3.at_css('#right_song div div div a')['href']), 
+								 	'url' => fix_utf8(url['href']), 
 								 	'type' => 'Download', 
 								 	'source' => 'MP3Skull' }
 				links << link

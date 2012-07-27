@@ -8,9 +8,10 @@
 		
 songs = ChartScraper.scrape(chart: :hot100)
 playlist = Playlist.find_or_create_by(name: 'Billboard Hot 100')
-# playlist.rankings.destroy_all
+playlist.rankings.destroy_all
 
 songs.each do |song_hash|
+# 	next if song_hash[:position].to_i < 78 # for debugging crashes at a specific song
 	service = :rdio
 	track = ServiceApi.get_track(title: song_hash[:title], artist: song_hash[:artist], service: service)
 
