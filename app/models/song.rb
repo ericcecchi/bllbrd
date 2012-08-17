@@ -82,8 +82,8 @@ class Song
 	end
 	
 	def update_links
-		l = SkullScraper.scrape(track: self.name, artist: self.artist_name)
-		self.mp3skull = l
+		self.mp3skull = SkullScraper.scrape(track: self.name, artist: self.artist_name, service: :mp3skull)
+		self.mp3skull += SkullScraper.scrape(track: self.name, artist: self.artist_name, service: :mp3chief)
 	end
 	
 	def links

@@ -72,7 +72,21 @@ class SongsController < ApplicationController
       end
     end
   end
-
+  
+  def update_links
+    @song = Song.where(slug: params[:id]).first
+    @song.update_links
+    respond_to do |format|
+      if @song.save!
+        format.html { redirect_to @song, notice: 'Song was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit", notice: params[:message]  }
+        format.json { render json: @song.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
   # DELETE /songs/1
   # DELETE /songs/1.json
   def destroy
