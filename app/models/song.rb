@@ -21,7 +21,7 @@ class Song
 	belongs_to :featuring, class_name: 'Artist', inverse_of: :featuring_songs
 	has_and_belongs_to_many :tags
 	has_many :rankings, dependent: :destroy
-	has_many :sources
+	has_many :sources, dependent: :destroy
 	
   validates_presence_of :name, message: "Name must be present."
   validates_presence_of :album_artist, message: "Artist must be present."
@@ -82,16 +82,24 @@ class Song
 	end
 	
 	def update_links
-		self.mp3skull = SkullScraper.scrape(track: self.name, artist: self.artist_name, service: :mp3skull)
-		self.mp3skull += SkullScraper.scrape(track: self.name, artist: self.artist_name, service: :mp3chief)
+		links = SkullScraper.scrape(track: self.name, artist: self.artist_name, service: :mp3skull)
+		links += SkullScraper.scrape(track: self.name, artist: self.artist_name, service: :mp3chief)
+		links.each do |l|
+			begin
+				s = Source.create!(name: l[:name], quality: l[:quality], type: :download, site: l[:site], url: l[:url])
+				s.song = self
+				s.save!
+			rescue Mongoid::Errors::Validations
+				next
+			end
+		end
 	end
 	
 	def links
-		if self.mp3skull == []
+		if self.sources == []
 			self.update_links
-			self.save!
 		end
-		self.mp3skull
+		self.sources
 	end
 	
 	def playlists

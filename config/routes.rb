@@ -3,7 +3,7 @@ Bllbrd::Application.routes.draw do
 	match "/auth/:provider/callback" => "sessions#create"
 	match "/signout" => "sessions#destroy", as: :signout
 	match "/search" => "search#index", as: "search"
-	match "/songs/:id/refresh" => "songs#update_links", as: "song_update_links"
+	match "/:artist_id/:album_id/:id/refresh" => "songs#update_links", as: "song_update_links"
 	
   resources :playlists
   resources :tags

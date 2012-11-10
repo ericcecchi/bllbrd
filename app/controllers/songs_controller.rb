@@ -77,11 +77,11 @@ class SongsController < ApplicationController
     @song = Song.where(slug: params[:id]).first
     @song.update_links
     respond_to do |format|
-      if @song.save!
+      if @song.save
         format.html { redirect_to @song, notice: 'Song was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit", notice: params[:message]  }
+        format.html { redirect_to @song, notice: params[:message]  }
         format.json { render json: @song.errors, status: :unprocessable_entity }
       end
     end

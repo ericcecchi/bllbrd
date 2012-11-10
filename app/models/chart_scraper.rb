@@ -3,8 +3,15 @@ class ChartScraper
 	require 'open-uri'
 	
 	def self.scrape(args)
-	# Given a chart type, returns a list of song hashes with the following keys:
-	# :title, :artist, :featuring, :album, :position, :chart
+	# Parameters:
+	#
+	# :chart (Symbol)
+	#		The music chart service to scrape. Currently, :rock_songs, :hot100, :pop_songs, 
+	#		:alternative_songs, and :hiphop_songs from billboard.com.
+	#
+	# Returns a list of song hashes with the following keys:
+	# 	:title, :artist, :featuring, :album, :position, :chart
+	#	All values are Strings.
 	
 		case args[:chart]
 			when :rock_songs
@@ -53,13 +60,12 @@ class ChartScraper
 		return songs
 	end
 	
-	def self.process(songs, playlist)
+	def self.process(songs, playlist, service=:rdio)
 	# Processes a list of song hashes. Retrieves song info using service API's.
 	# Adds processed songs to database.
 	
 		songs.each do |song_hash|
 		# 	next if song_hash[:position].to_i < 78 # for debugging crashes at a specific song
-			service = :rdio
 			track = ServiceApi.get_track(title: song_hash[:title], artist: song_hash[:artist], service: service)
 		
 		# 	print track

@@ -48,7 +48,7 @@
 	<div class="span12">
 		<br/>
 		<h2>Sources</h2>
-		<%= link_to "Refresh sources", song_update_links_path(@song), class: 'pull-right' %>
+		<%= link_to "Refresh sources", song_update_links_path(@song.album_artist,@song.album,@song), class: 'pull-right' %>
 		<table class="table table-striped">
 		  <thead>
 		    <tr>
@@ -76,8 +76,8 @@
 		  <tbody>
 		    <% @song.links.each do |link| %>
 		      <tr>
-		        <td><%= link_to link['name'], link['url'], :target => "_blank" %></td>
-		        <td><%= link['source'] %></td>
+		        <td><%= link_to link[:name], link[:url], target: "_blank" %></td>
+		        <td><%= link[:site] %></td>
 		      </tr>
 		    <% end %>
 		    <tr>

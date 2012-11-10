@@ -4,11 +4,17 @@ class ServiceApi
 	
 	def self.get_album(args)
 	# Parameters:
-	# service: Symbol. The API to use for the album lookup. Currently, :rdio, :lastfm, or :spotify. (Required)
-	# name: String. Name of the album. Used for search. (Required unless given a key)
-	# artist: String. Name of the artist. Used for search. (Required unless given a key)
-	# key: String. The unique key for the given service. (Optional)
-	# limit: Integer. If given limit > 1, it will return an array of the top results. Defaults to 1. (Optional)
+	#
+	# :service (Symbol)
+	#		The API to use for the album lookup. Currently, :rdio, :lastfm, or :spotify. (Required)
+	# :name (String)
+	#		Title of the album. Used for search. (Required unless given a key)
+	# :artist (String)
+	#		Main artist of the album. Used for search. (Optional)
+	# :key (String)
+	#		The unique key for the given service. (Optional)
+	# :limit (Integer)
+	#		If given limit > 1, it will return an array of the top results. Defaults to 1. (Optional)
 	#
 	# Returns an album hash or array of album hashes from the given service API.
 		
@@ -80,10 +86,15 @@ class ServiceApi
 
 	def self.get_artist(args)
 	# Parameters:
-	# service: Symbol. The API to use for the artist lookup. Currently, :rdio, :lastfm, or :spotify. (Required)
-	# name: String. Name of the artist. Used for search. (Required unless given a key)
-	# key: String. The unique key for the given service. (Optional)
-	# limit: Integer. If given limit > 1, it will return an array of the top results. Defaults to 1. (Optional)
+	#
+	# :service (Symbol)
+	#		The API to use for the artist lookup. Currently, :rdio, :lastfm, or :spotify. (Required)
+	# :name (String)
+	#		The name of the artist. (Required unless given a key)
+	# :key (String)
+	#		The unique key for the given service. (Optional)
+	# :limit (Integer)
+	#		If given limit > 1, it will return an array of the top results. Defaults to 1. (Optional)
 	#
 	# Returns an artist hash or array of artist hashes from the given service API.
 		
@@ -155,11 +166,17 @@ class ServiceApi
 	
 	def self.get_track(args)
 	# Parameters:
-	# service: Symbol. The API to use for the track lookup. Currently, :rdio, :lastfm, or :spotify. (Required)
-	# title: String. Title of the song. Used for search. (Required unless given a key)
-	# artist: String. Main artist of the song. Used for search. (Optional)
-	# key: String. The unique key for the given service. (Optional)
-	# limit: Integer. If given limit > 1, it will return an array of the top results. Defaults to 1. (Optional)
+	#
+	# :service (Symbol)
+	#		The API to use for the track lookup. Currently, :rdio, :lastfm, or :spotify. (Required)
+	# :title (String)
+	#		Title of the song. Used for search. (Required unless given a key)
+	# :artist (String)
+	#		Main artist of the song. Used for search. (Optional)
+	# :key (String)
+	#		The unique key for the given service. (Optional)
+	# :limit (Integer)
+	#		If given limit > 1, it will return an array of the top results. Defaults to 1. (Optional)
 	#
 	# Returns a track hash or array of track hashes from the given service API.
 		

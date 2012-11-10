@@ -27,23 +27,27 @@ class SkullScraper
 		end
 		
 		i = 0
-		doc = Nokogiri::XML(open(url))
-		doc.css(song_html).each do |mp3|
-			break if i > limit
-			mp3_info = mp3.at_css(mp3_html).content
-			name = fix_utf8(mp3.at_css(name_html).content)
-			unless mp3_info.to_i < 320 or name.downcase.include?("remix")
-				url = mp3.at_css(url_html)
-				next if url.nil?
-				next if url['href'].include?('4shared')
-				link = {	'name' => name,
-								 	'quality' => 320, 
-								 	'url' => fix_utf8(url['href']), 
-								 	'type' => 'Download', 
-								 	'source' => service }
-				links << link
-				i += 1
+		begin
+			doc = Nokogiri::XML(open(url))
+			doc.css(song_html).each do |mp3|
+				break if i > limit
+				mp3_info = mp3.at_css(mp3_html).content
+				name = fix_utf8(mp3.at_css(name_html).content)
+				unless mp3_info.to_i < 320 or name.downcase.include?("remix")
+					url = mp3.at_css(url_html)
+					next if url.nil?
+					next if url['href'].include?('4shared')
+					link = {	name: name,
+									 	quality: 320, 
+									 	url: fix_utf8(url['href']), 
+									 	type: :download, 
+									 	site: service }
+					links << link
+					i += 1
+				end
 			end
+		rescue OpenURI::HTTPError, Errno::ECONNREFUSED, Errno::ECONNRESET
+			links = []
 		end
 		return links
 	end
