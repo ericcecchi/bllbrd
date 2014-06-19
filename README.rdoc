@@ -1,4 +1,4 @@
-# bllbrd is dead
+= bllbrd is dead
 
 bllbrd was a fun little pet project for us to learn Ruby on Rails. It was never really meant to be more than that, 
 and it served its purpose well. Feel free steal the scraper and parser code :)
